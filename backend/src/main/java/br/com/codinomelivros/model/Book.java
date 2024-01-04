@@ -25,6 +25,7 @@ public class Book {
 
     private String author;
 
+    @Enumerated(EnumType.STRING)
     private LiteraryGenreEnum literaryGenreEnum;
 
     private Integer numberOfPages;
@@ -33,10 +34,8 @@ public class Book {
 
     private String image;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tb_book_assessment",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "assessment_id"))
+    @OneToMany(mappedBy = "book", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
     private Set<Assessment> assessments = new HashSet<>();
 
     public Book() {};

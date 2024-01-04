@@ -17,6 +17,8 @@ public class AssessmentDTO implements Serializable {
     @NotBlank(message = "Campo requerido")
     private String opinionAuthor;
 
+    private Long bookId;
+
     public AssessmentDTO() {}
 
     public AssessmentDTO(Long id, Integer note, String opinion, String opinionAuthor) {
@@ -63,5 +65,13 @@ public class AssessmentDTO implements Serializable {
 
     public void setOpinionAuthor(String opinionAuthor) {
         this.opinionAuthor = opinionAuthor;
+    }
+
+    public Long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 }

@@ -27,9 +27,14 @@ public class BookService {
     }
 
     public BookDTO findById(Long id) {
+        Book book = findByBookId(id);
+        return new BookDTO(book, book.getAssessments());
+    }
+
+    public Book findByBookId(Long id) {
         Optional<Book> bookOp = repository.findById(id);
         Book book = bookOp.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-        return new BookDTO(book);
+        return book;
     }
 
     public BookDTO insertNewBook(BookDTO newBook) {

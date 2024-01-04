@@ -21,8 +21,9 @@ public class Assessment {
 
     private String opinionAuthor;
 
-    @ManyToMany(mappedBy = "assessments")
-    private Set<Book> books = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_fk")
+    private Book book;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
@@ -35,12 +36,12 @@ public class Assessment {
 
     public Assessment() {};
 
-    public Assessment(Long id, Integer note, String opinion, String opinionAuthor, Set<Book> books, Instant date) {
+    public Assessment(Long id, Integer note, String opinion, String opinionAuthor, Book book, Instant date) {
         this.id = id;
         this.note = note;
         this.opinion = opinion;
         this.opinionAuthor = opinionAuthor;
-        this.books = books;
+        this.book = book;
         this.date = date;
     }
 
@@ -76,12 +77,13 @@ public class Assessment {
         this.opinionAuthor = opinionAuthor;
     }
 
-    public Set<Book> getBooks() {
-        return books;
+
+    public Book getBook() {
+        return book;
     }
 
-    public void setBooks(Set<Book> books) {
-        this.books = books;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public Instant getDate() {

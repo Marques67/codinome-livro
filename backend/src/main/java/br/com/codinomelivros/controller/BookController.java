@@ -17,6 +17,12 @@ public class BookController {
     @Autowired
     private BookService service;
 
+    @GetMapping
+    public ResponseEntity<List<BookDTO>> findAll() {
+        List<BookDTO> books = service.findAll();
+        return ResponseEntity.ok().body(books);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<BookDTO> findById(@PathVariable Long id) {
         BookDTO book = service.findById(id);
