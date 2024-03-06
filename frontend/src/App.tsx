@@ -1,19 +1,16 @@
 import './assets/styles/custom.scss';
 import './App.css';
-import Routes from 'Routes';
 import { useState } from 'react';
 import { AuthContext, AuthContextData } from 'AuthContext';
+import NavBar from 'components/Navbar';
 
-const App = () => {
-  const [authContextData, setAuthContextData] = useState<AuthContextData>({
-    authenticated: false,
-  });
-
+function App() {
   return (
-    <AuthContext.Provider value={{ authContextData, setAuthContextData }}>
-      <Routes />
-    </AuthContext.Provider>
+    <>
+      <NavBar />
+      <h1>Hello</h1>
+    </>
   );
-};
+}
 
 export default App;
