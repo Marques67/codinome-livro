@@ -1,16 +1,9 @@
 import './assets/styles/custom.scss';
 import './App.css';
-import { useState } from 'react';
-import { AuthContext, AuthContextData } from 'AuthContext';
-import NavBar from 'components/Navbar';
+import Home from 'pages/Home';
 
 function App() {
-  return (
-    <>
-      <NavBar />
-      <h1>Hello</h1>
-    </>
-  );
+  return <Home />;
 }
 
 export default App;
