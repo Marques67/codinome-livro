@@ -2,6 +2,7 @@ package br.com.codinomelivros.service;
 
 import br.com.codinomelivros.dto.BookDTO;
 import br.com.codinomelivros.model.Book;
+import br.com.codinomelivros.model.Review;
 import br.com.codinomelivros.repository.BookRepository;
 import br.com.codinomelivros.service.exceptions.DataBaseException;
 import br.com.codinomelivros.service.exceptions.ResourceNotFoundException;
@@ -28,7 +29,7 @@ public class BookService {
 
     public BookDTO findById(Long id) {
         Book book = findByBookId(id);
-        return new BookDTO(book, book.getAssessments());
+        return new BookDTO(book, book.getReviews());
     }
 
     public Book findByBookId(Long id) {
@@ -75,6 +76,21 @@ public class BookService {
         book.setNumberOfPages(dto.getNumberOfPages());
         book.setPublishingCompany(dto.getPublishingCompany());
         book.setImage(dto.getImage());
+        return book;
+    }
+
+    public Book updateCount(Book book) {
+        double sum = 0.0;
+        for (Review review :  book.getReviews()) {
+            sum = sum + review.getNote();
+        }
+
+        double avg = sum / book.getReviews().size();
+
+        book.setScore(avg);
+        book.setCountReview(book.getReviews().size());
+
+        repository.save(book);
         return book;
     }
 }

@@ -1,29 +1,32 @@
 package br.com.codinomelivros.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_assessment")
-public class Assessment {
+@Table(name = "tb_review")
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer note;
+    private Double note;
 
     @Column(columnDefinition = "TEXT")
     private String opinion;
 
-    private String opinionAuthor;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_fk")
+    @JoinColumn(name = "book_id")
     private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
@@ -34,13 +37,12 @@ public class Assessment {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt;
 
-    public Assessment() {};
+    public Review() {};
 
-    public Assessment(Long id, Integer note, String opinion, String opinionAuthor, Book book, Instant date) {
+    public Review(Long id, Double note, Integer count, String opinion, Book book, Instant date) {
         this.id = id;
         this.note = note;
         this.opinion = opinion;
-        this.opinionAuthor = opinionAuthor;
         this.book = book;
         this.date = date;
     }
@@ -53,11 +55,11 @@ public class Assessment {
         this.id = id;
     }
 
-    public Integer getNote() {
+    public Double getNote() {
         return note;
     }
 
-    public void setNote(Integer note) {
+    public void setNote(Double note) {
         this.note = note;
     }
 
@@ -69,21 +71,20 @@ public class Assessment {
         this.opinion = opinion;
     }
 
-    public String getOpinionAuthor() {
-        return opinionAuthor;
-    }
-
-    public void setOpinionAuthor(String opinionAuthor) {
-        this.opinionAuthor = opinionAuthor;
-    }
-
-
     public Book getBook() {
         return book;
     }
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Instant getDate() {
@@ -116,7 +117,7 @@ public class Assessment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Assessment that = (Assessment) o;
+        Review that = (Review) o;
         return Objects.equals(id, that.id);
     }
 

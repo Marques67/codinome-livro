@@ -1,7 +1,7 @@
 package br.com.codinomelivros.dto;
 
 import br.com.codinomelivros.enums.LiteraryGenreEnum;
-import br.com.codinomelivros.model.Assessment;
+import br.com.codinomelivros.model.Review;
 import br.com.codinomelivros.model.Book;
 
 import javax.validation.constraints.NotBlank;
@@ -28,12 +28,14 @@ public class BookDTO implements Serializable {
     private Integer numberOfPages;
     private String publishingCompany;
     private String image;
-    private Set<AssessmentDTO> assessments = new HashSet<>();
+    private Set<ReviewDTO> reviews = new HashSet<>();
+    private Integer countReview;
+    private Double score;
 
     public BookDTO() {}
 
     public BookDTO(Long id, String name, String description, String author, LiteraryGenreEnum literaryGenreEnumm,
-                   Integer numberOfPages, String publishingCompany, String image) {
+                   Integer numberOfPages, String publishingCompany, String image, Integer countReview, Double score) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -42,6 +44,8 @@ public class BookDTO implements Serializable {
         this.numberOfPages = numberOfPages;
         this.publishingCompany = publishingCompany;
         this.image = image;
+        this.countReview = countReview;
+        this.score = score;
     }
 
     public BookDTO(Book book) {
@@ -53,11 +57,13 @@ public class BookDTO implements Serializable {
         this.numberOfPages = book.getNumberOfPages();
         this.publishingCompany = book.getPublishingCompany();
         this.image = book.getImage();
+        this.countReview = book.getCountReview();
+        this.score = book.getScore();
     }
 
-    public BookDTO(Book book, Set<Assessment> assessments) {
+    public BookDTO(Book book, Set<Review> reviews) {
         this(book);
-        assessments.forEach(assessment -> this.assessments.add(new AssessmentDTO(assessment)));
+        reviews.forEach(review -> this.reviews.add(new ReviewDTO(review)));
     }
 
     public Long getId() {
@@ -124,11 +130,27 @@ public class BookDTO implements Serializable {
         this.image = image;
     }
 
-    public Set<AssessmentDTO> getAssessments() {
-        return assessments;
+    public Set<ReviewDTO> getReviews() {
+        return reviews;
     }
 
-    public void setAssessments(Set<AssessmentDTO> assessments) {
-        this.assessments = assessments;
+    public void setReviews(Set<ReviewDTO> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Integer getCountReview() {
+        return countReview;
+    }
+
+    public void setCountReview(Integer countReview) {
+        this.countReview = countReview;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
     }
 }
