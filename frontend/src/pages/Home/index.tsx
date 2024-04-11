@@ -16,9 +16,11 @@ const Home = () => {
               que irá ler
             </p>
           </div>
-          <Link to="/books">
-            <ButtonIcon />
-          </Link>
+          <div>
+            <Link to="/books">
+              <ButtonIcon />
+            </Link>
+          </div>
         </div>
         <div className="home-image-container">
           <MainImage />

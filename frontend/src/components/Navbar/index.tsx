@@ -25,7 +25,7 @@ const NavBar = () => {
           <ul className="navbar-nav offset-md-2 main-menu">
             <li>
               <NavLink to="/" activeClassName="active" exact>
-                INÍCIOS
+                INÍCIO
               </NavLink>
             </li>
             <li>
