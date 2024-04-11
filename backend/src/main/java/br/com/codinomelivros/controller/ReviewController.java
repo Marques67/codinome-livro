@@ -27,7 +27,7 @@ public class ReviewController {
     public ResponseEntity<BookDTO> insertReview(@Valid @RequestBody ReviewDTO reviewDTO) {
         BookDTO bookDTO = service.insertNewReview(reviewDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(reviewDTO.getId()).toUri();
+                .buildAndExpand(reviewDTO.getBookId()).toUri();
         return ResponseEntity.created(uri).body(bookDTO);
     }
 }

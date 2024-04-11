@@ -1,9 +1,13 @@
 package br.com.codinomelivros.service;
 
 import br.com.codinomelivros.dto.BookDTO;
+import br.com.codinomelivros.dto.ReviewDTO;
 import br.com.codinomelivros.model.Book;
 import br.com.codinomelivros.model.Review;
+import br.com.codinomelivros.model.User;
 import br.com.codinomelivros.repository.BookRepository;
+import br.com.codinomelivros.repository.ReviewRepository;
+import br.com.codinomelivros.repository.UserRepository;
 import br.com.codinomelivros.service.exceptions.DataBaseException;
 import br.com.codinomelivros.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,6 +26,15 @@ public class BookService {
 
     @Autowired
     private BookRepository repository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AuthService authService;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public List<BookDTO> findAll() {
         List<Book> books = repository.findAll();
@@ -79,10 +93,21 @@ public class BookService {
         return book;
     }
 
-    public Book updateCount(Book book) {
+    public Book updateCount(ReviewDTO dto) {
+        Book book = findByBookId(dto.getBookId());
+
+        Review review = new Review();
+        review.setOpinion(dto.getOpinion());
+        review.setBook(book);
+        review.setUser(authService.authenticated());
+        review.setDate(Instant.now());
+        review.setNote(dto.getNote());
+
+        review = reviewRepository.saveAndFlush(review);
+
         double sum = 0.0;
-        for (Review review :  book.getReviews()) {
-            sum = sum + review.getNote();
+        for (Review s : book.getReviews()) {
+            sum = sum + s.getNote();
         }
 
         double avg = sum / book.getReviews().size();
@@ -90,7 +115,8 @@ public class BookService {
         book.setScore(avg);
         book.setCountReview(book.getReviews().size());
 
-        repository.save(book);
+        book = repository.save(book);
+
         return book;
     }
 }

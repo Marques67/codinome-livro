@@ -1,10 +1,9 @@
 import './assets/styles/custom.scss';
 import './App.css';
-import Home from 'pages/Home';
-import Review from 'pages/Review';
+import Routes from 'Routes';
 
 function App() {
-  return <Review />;
+  return <Routes />;
 }
 
 export default App;

@@ -17,27 +17,8 @@ public class ReviewService {
     @Autowired
     BookService bookService;
 
-    @Autowired
-    ReviewRepository repository;
-
-    @Autowired
-    private AuthService authService;
-
     public BookDTO insertNewReview(ReviewDTO reviewDTO) {
-        Book book = bookService.findByBookId(reviewDTO.getBookId());
-        Review review = copyDTOToEntity(reviewDTO, book);
-        review = repository.save(review);
-        book = bookService.updateCount(book);
+        Book book = bookService.updateCount(reviewDTO);
         return new BookDTO(book);
-    }
-
-    public Review copyDTOToEntity(ReviewDTO dto, Book book) {
-        Review review = new Review();
-        review.setNote(dto.getNote());
-        review.setOpinion(dto.getOpinion());
-        review.setDate(Instant.now());
-        review.setBook(book);
-        review.setUser(authService.authenticated());
-        return review;
     }
 }

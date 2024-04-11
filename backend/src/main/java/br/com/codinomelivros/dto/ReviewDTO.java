@@ -8,37 +8,18 @@ import java.math.BigDecimal;
 
 public class ReviewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    private Long id;
     private Double note;
     @NotBlank(message = "Campo requerido")
     private String opinion;
 
     private Long bookId;
-    private UserDTO user;
 
     public ReviewDTO() {}
 
-    public ReviewDTO(Long id, Double note, String opinion, UserDTO user) {
-        this.id = id;
-        this.note = note;
-        this.opinion = opinion;
-        this.user = user;
-    }
-
     public ReviewDTO(Review review) {
-        this.id = review.getId();
         this.note = review.getNote();
         this.opinion = review.getOpinion();
-        this.user = new UserDTO(review.getUser());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.bookId = review.getId().getBook().getId();
     }
 
     public Double getNote() {
@@ -65,11 +46,4 @@ public class ReviewDTO implements Serializable {
         this.bookId = bookId;
     }
 
-    public UserDTO getUser() {
-        return user;
-    }
-
-    public void setUser(UserDTO user) {
-        this.user = user;
-    }
 }

@@ -10,6 +10,8 @@ export type Book = {
     publishingCompany: string;
     image: string;
     reviews: Review[];
+    countReview: number;
+    score: number;
 }
 
 export enum LiteraryGenrerEnum {
