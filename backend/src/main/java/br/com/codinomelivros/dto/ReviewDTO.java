@@ -5,6 +5,7 @@ import br.com.codinomelivros.model.Review;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.Instant;
 
 public class ReviewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -14,12 +15,15 @@ public class ReviewDTO implements Serializable {
 
     private Long bookId;
 
+    private Instant date;
+
     public ReviewDTO() {}
 
     public ReviewDTO(Review review) {
         this.note = review.getNote();
         this.opinion = review.getOpinion();
         this.bookId = review.getId().getBook().getId();
+        this.date = review.getDate();
     }
 
     public Double getNote() {
@@ -46,4 +50,11 @@ public class ReviewDTO implements Serializable {
         this.bookId = bookId;
     }
 
+    public Instant getDate() {
+        return date;
+    }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
 }

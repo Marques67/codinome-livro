@@ -1,5 +1,4 @@
-import { ReactComponent as MainImage } from 'assets/images/main-image.svg';
-
+import { ReactComponent as MainImage } from 'assets/images/reading-a-book-3.svg';
 import './styles.css';
 import ButtonIcon from 'components/ButtonIcon';
 import { Link } from 'react-router-dom';
@@ -18,7 +17,7 @@ const Home = () => {
           </div>
           <div>
             <Link to="/books">
-              <ButtonIcon />
+              <ButtonIcon text="ENCONTRE SEU PRÓXIMO LIVRO FAVORITO" />
             </Link>
           </div>
         </div>

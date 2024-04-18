@@ -1,6 +1,5 @@
 import './styles.css';
 import { Book } from 'types/book';
-import BookImg from 'assets/images/book.png';
 import BookScore from 'components/BookScore';
 
 type Props = {
@@ -11,7 +10,7 @@ function BookCard({ book }: Props) {
   return (
     <div className="base-card book-card">
       <div className="card-top-container">
-        <img src={BookImg} alt="Nome do livro" />
+        <img src={book.image} alt={book.name} />
       </div>
       <div className="card-bottom-container">
         <h6>{book.name}</h6>

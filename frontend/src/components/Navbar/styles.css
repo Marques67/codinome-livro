@@ -1,10 +1,11 @@
 .main-nav {
     padding-left: 40px;
     min-height: 70px;
+    background-image: linear-gradient(to right, #24303f, #18788f); 
 }
 
 .nav-log-text, .nav-log-text:hover {
-    color: #FFBC11;
+    color: white;
 }
 
 .main-menu {
@@ -19,10 +20,10 @@
 }
 
 .main-menu a:hover {
-    color: #FFBC11;
+    color: #23b09b;
 }
 
 .main-menu a.active {
-    color: #FFBC11;
+    color: white;
     font-weight: bold;
 }

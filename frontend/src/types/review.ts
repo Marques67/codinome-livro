@@ -3,5 +3,4 @@ export type Review = {
     note: number;
     opinion: string;
     date: string;
-    score: number;
 }

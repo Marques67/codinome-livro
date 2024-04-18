@@ -10,10 +10,11 @@
 
 .card-top-container img {
     width: 158px;
-    height: 158px;
+    height: 198px;
 }    
 
 .card-bottom-container {
+    text-align: center;
     padding: 15px 20px 30px 20px;
 }
 
