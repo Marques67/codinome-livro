@@ -1,0 +1,18 @@
+.book-container {
+    font-size: 18px;
+}
+
+.book-title-container {
+    margin-bottom: 20px;
+}
+
+.book-title-container h1 {
+    font-size: 1em;
+    letter-spacing: -0.015em;
+}
+
+@media (min-width: 576px) {
+    .book-container {
+        font-size: 30px;
+    }
+}

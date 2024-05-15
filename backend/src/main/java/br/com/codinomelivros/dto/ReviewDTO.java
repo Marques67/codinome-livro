@@ -16,6 +16,7 @@ public class ReviewDTO implements Serializable {
     private Long bookId;
 
     private Instant date;
+    private UserDTO user;
 
     public ReviewDTO() {}
 
@@ -24,6 +25,7 @@ public class ReviewDTO implements Serializable {
         this.opinion = review.getOpinion();
         this.bookId = review.getId().getBook().getId();
         this.date = review.getDate();
+        this.user = new UserDTO(review.getId().getUser());
     }
 
     public Double getNote() {

@@ -8,6 +8,21 @@
     color: white;
 }
 
+.nav-log-text {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    align-items: center;
+}
+
+.nav-log-text svg {
+    width: 50%;
+    height: 40px;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius:60px;
+}   
+
 .main-menu {
     display: flex;
     font-size: 18px;

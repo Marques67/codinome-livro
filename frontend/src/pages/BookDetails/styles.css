@@ -1,0 +1,125 @@
+.book-details-container {
+    padding: 10px;
+    font-size: 24px;
+}
+
+.book-details-card {
+    padding: 10px;
+}
+
+.goback-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.goback-container h2 {
+    margin-left: 15px;
+    font-size: 1em;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+}  
+
+.goback-container svg {
+    margin-left: 5px;
+    color: #23b09b;
+    transform: rotate(-180deg);
+}  
+
+.img-container {
+    border: 1px solid #E1E1E1;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.img-container img {
+    width: 80%;
+}
+
+.name-review-container {
+    margin-bottom: 20px;
+}
+
+.name-review-container h1 {
+    text-align: center;
+    font-size: 1.1em;
+    letter-spacing: -0.015em;
+}
+
+.description-container {
+    border: 1px solid #E1E1E1;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.review-container {
+    margin-top: 30px;
+    border: 1px solid #E1E1E1;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.review-container h1 {
+    color: #9E9E9E;
+    letter-spacing: -0.015em;
+    font-size: 0.9em;
+    margin-bottom: 20px;
+}
+
+.description-container h2, .review-container h2 {
+    color: #9E9E9E;
+    letter-spacing: -0.015em;
+    font-size: 0.8em;
+    margin-bottom: 20px;
+}
+
+.description-container p, .review-container p {
+    color: #9E9E9E;
+    letter-spacing: -0.015em;
+    font-size: 0.7em;
+}
+
+.reviews-container {
+    padding: 0px 0px 20px 0px;
+  }
+
+@media (min-width: 576px) {
+    .book-details-container {
+        padding: 20px;
+        font-size: 32px;
+    }
+
+    .book-details-card {
+        padding: 20px;
+    }
+}
+
+@media (min-width: 992px) {
+    .book-details-container {
+        padding: 40px;
+    }
+
+    .book-details-card {
+        padding: 40px;
+    }
+
+    .img-container img {
+        width: 50%;
+    }
+
+    .description-container, .review-container {
+        padding: 40px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .description-container, .review-container {
+        font-size: 25px;
+    }
+
+    .img-container img {
+        width: 37%;
+    }
+}    

@@ -10,10 +10,7 @@ const Home = () => {
         <div className="home-content-container">
           <div>
             <h1>Encontre agora sua próxima leitura</h1>
-            <p>
-              Ajudaremos você a acabar com a dúvida e decidir o próximo livro
-              que irá ler
-            </p>
+            <p>Avalie, receba sugestões, mergulhe em novas histórias!</p>
           </div>
           <div>
             <Link to="/books">

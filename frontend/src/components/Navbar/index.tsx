@@ -1,12 +1,13 @@
 import { Link, NavLink } from 'react-router-dom';
 import './styles.css';
 import 'bootstrap/js/src/collapse';
-
+import { ReactComponent as CgLogo } from 'assets/images/cg-logo-2.svg';
 const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-primary main-nav">
       <div className="container-fluid">
         <Link to="/" className="nav-log-text">
+          <CgLogo />
           <h4>Codinome Livros</h4>
         </Link>
         <button

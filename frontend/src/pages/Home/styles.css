@@ -100,7 +100,7 @@
 
 @media (min-width: 1200px) {
     .home-card {
-      flex-direction: row;
+      flex-direction: row-reverse;
       justify-content: space-around;
       padding: calc(((85vh - 490px) / 2) - 20px) 0;
     }
@@ -129,5 +129,5 @@
   @media (min-width: 1400px) {
     .home-image-container svg {
       width: 480px;
-    }  
+    }
   }

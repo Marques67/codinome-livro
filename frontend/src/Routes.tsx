@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from 'components/Navbar';
+import Footer from 'components/Footer';
 import Home from 'pages/Home';
 import Books from 'pages/Book';
 import Admin from 'pages/Admin';
@@ -23,6 +24,7 @@ const Routes = () => {
           <Admin />
         </Route>
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 };
