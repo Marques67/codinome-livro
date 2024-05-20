@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import NavBar from 'components/Navbar';
 import Footer from 'components/Footer';
 import Home from 'pages/Home';
@@ -20,6 +20,7 @@ const Routes = () => {
         <Route path="/books/:bookId">
           <BookDetails />
         </Route>
+        <Redirect from="/admin" to="/admin/books" exact />
         <Route path="/admin">
           <Admin />
         </Route>

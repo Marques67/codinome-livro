@@ -7,7 +7,9 @@ import br.com.codinomelivros.model.Book;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class BookDTO implements Serializable {
@@ -28,7 +30,7 @@ public class BookDTO implements Serializable {
     private Integer numberOfPages;
     private String publishingCompany;
     private String image;
-    private Set<ReviewDTO> reviews = new HashSet<>();
+    private List<ReviewDTO> reviews = new ArrayList<>();
     private Integer countReview;
     private Double score;
 
@@ -57,7 +59,7 @@ public class BookDTO implements Serializable {
         this.numberOfPages = book.getNumberOfPages();
         this.publishingCompany = book.getPublishingCompany();
         this.image = book.getImage();
-        this.countReview = book.getCountReview();
+        this.countReview = book.getReviews().size();
         this.score = book.getScore();
     }
 
@@ -130,11 +132,11 @@ public class BookDTO implements Serializable {
         this.image = image;
     }
 
-    public Set<ReviewDTO> getReviews() {
+    public List<ReviewDTO> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<ReviewDTO> reviews) {
+    public void setReviews(List<ReviewDTO> reviews) {
         this.reviews = reviews;
     }
 

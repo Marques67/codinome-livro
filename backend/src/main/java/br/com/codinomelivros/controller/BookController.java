@@ -3,6 +3,8 @@ package br.com.codinomelivros.controller;
 import br.com.codinomelivros.dto.BookDTO;
 import br.com.codinomelivros.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,10 +19,18 @@ public class BookController {
     @Autowired
     private BookService service;
 
+//    @GetMapping
+//    public ResponseEntity<Page<BookDTO>> findAll(Pageable pageable) {
+//        Page<BookDTO> list = service.findAllPaged(pageable);
+//        return ResponseEntity.ok().body(list);
+//    }
+
     @GetMapping
-    public ResponseEntity<List<BookDTO>> findAll() {
-        List<BookDTO> books = service.findAll();
-        return ResponseEntity.ok().body(books);
+    public ResponseEntity<Page<BookDTO>> findAll(@RequestParam(value = "literaryGenreEnum", defaultValue = "NONE") String literaryGenre,
+                                                    @RequestParam(value = "name", defaultValue = "") String name,
+                                                    Pageable pageable) {
+        Page<BookDTO> list = service.findAllPaged(literaryGenre.trim(), name.trim(), pageable);
+        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")

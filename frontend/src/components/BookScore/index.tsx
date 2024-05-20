@@ -13,7 +13,11 @@ function BookScore({ score, count }: Props) {
         {score > 0 ? score.toFixed(1) : '-'}
       </p>
       <BookStars score={score} />
-      <p className="codinome-livros-score-count">{count} avaliações</p>
+      {count === 1 ? (
+        <p className="codinome-livros-score-count">{count} avaliação</p>
+      ) : (
+        <p className="codinome-livros-score-count">{count} avaliações</p>
+      )}
     </div>
   );
 }

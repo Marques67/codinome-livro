@@ -3,50 +3,34 @@ import BookScore from 'components/BookScore';
 
 import './styles.css';
 import ListReviews from './components/ListReviews';
-import { Book, LiteraryGenrerEnum } from 'types/book';
-import { Link } from 'react-router-dom';
+import { Book } from 'types/book';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { BASE_URL } from 'util/requests';
+import { useEffect, useState } from 'react';
+import BookInfoLoader from './BookInfoLoader';
+import BookDetailsLoader from './BookDetailsLoader';
+
+type urlParam = {
+  bookId: string;
+};
 
 const BookDetails = () => {
-  const book: Book = {
-    id: 1,
-    description: 'Good',
-    name: 'Jogador Nº1',
-    author: 'Daniel',
-    numberOfPages: 356,
-    publishingCompany: 'Aleph',
-    countReview: 23,
-    score: 4.5,
-    reviews: [
-      {
-        id: 1,
-        note: 5,
-        opinion:
-          'Livro incrível! Com certeza um dos 3 melhores livros que já li na vida!',
-        date: '2024-04-15T10:00:00Z',
-        user: {
-          id: 1,
-          firstName: 'Lucas',
-          lastName: 'Marques',
-          email: 'lucasmarquesff@hotmail.com',
-        },
-      },
-      {
-        id: 2,
-        note: 4,
-        opinion: 'Um ótimo passatempo e uma aventura muito gostosa de se ler.',
-        date: '2024-04-16T10:00:00Z',
-        user: {
-          id: 1,
-          firstName: 'Lara',
-          lastName: 'Cobar',
-          email: 'lara@hotmail.com',
-        },
-      },
-    ],
-    image:
-      'https://m.media-amazon.com/images/I/917GI-fesVL._AC_UF1000,1000_QL80_.jpg',
-    literaryGenreEnum: LiteraryGenrerEnum.ADVENTURE,
-  };
+  const { bookId } = useParams<urlParam>();
+  const [book, setBook] = useState<Book>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(`${BASE_URL}/books/${bookId}`)
+      .then((response) => {
+        setBook(response.data);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [bookId]);
 
   return (
     <div className="book-details-container">
@@ -59,36 +43,44 @@ const BookDetails = () => {
         </Link>
         <div className="row">
           <div className="col-xl-6">
-            <div className="img-container">
-              <img
-                src="https://m.media-amazon.com/images/I/917GI-fesVL._AC_UF1000,1000_QL80_.jpg"
-                alt="Nome do Livro"
-              />
-            </div>
-            <div className="name-review-container">
-              <h1>Jogador Nº1</h1>
-              <BookScore count={23} score={4.5} />
-            </div>
+            {isLoading ? (
+              <BookInfoLoader />
+            ) : (
+              <>
+                <div className="img-container">
+                  <img src={book?.image} alt={book?.name} />
+                </div>
+                <div className="name-review-container">
+                  <h1>{book?.name}</h1>
+                  {book && (
+                    <BookScore count={book?.countReview} score={book?.score} />
+                  )}
+                </div>{' '}
+              </>
+            )}
           </div>
           <div className="col-xl-6">
-            <div className="description-container">
-              <h2>Descrição do Livro</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Deserunt, libero.
-              </p>
-            </div>
-            <div className="review-container">
-              <h1>Avalie</h1>
-              <div className="review-score-container">
-                <h2>Informe sua nota:</h2>
-                <p>4.5</p>
-              </div>
-              <div className="review-opinion-container">
-                <h2>Deixe sua opinião:</h2>
-                <p>Muito Legal!</p>
-              </div>
-            </div>
+            {isLoading ? (
+              <BookDetailsLoader />
+            ) : (
+              <>
+                <div className="description-container">
+                  <h2>Descrição do Livro</h2>
+                  <p>{book?.description}</p>
+                </div>
+                <div className="review-container">
+                  <h1>Avalie</h1>
+                  <div className="review-score-container">
+                    <h2>Informe sua nota:</h2>
+                    <p>4.5</p>
+                  </div>
+                  <div className="review-opinion-container">
+                    <h2>Deixe sua opinião:</h2>
+                    <p>Muito Legal!</p>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -2,9 +2,9 @@ package br.com.codinomelivros.service;
 
 import br.com.codinomelivros.dto.BookDTO;
 import br.com.codinomelivros.dto.ReviewDTO;
+import br.com.codinomelivros.enums.LiteraryGenreEnum;
 import br.com.codinomelivros.model.Book;
 import br.com.codinomelivros.model.Review;
-import br.com.codinomelivros.model.User;
 import br.com.codinomelivros.repository.BookRepository;
 import br.com.codinomelivros.repository.ReviewRepository;
 import br.com.codinomelivros.repository.UserRepository;
@@ -13,11 +13,15 @@ import br.com.codinomelivros.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -36,9 +40,16 @@ public class BookService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    public List<BookDTO> findAll() {
-        List<Book> books = repository.findAll();
-        return books.stream().map(book -> new BookDTO(book)).collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public Page<BookDTO> findAllPaged(String literaryGenre, String name, Pageable pageable) {
+        LiteraryGenreEnum literaryGenreEnum = LiteraryGenreEnum.valueOf(literaryGenre);
+        String literaryGenreEnumName = literaryGenreEnum.getName();
+        if (literaryGenreEnumName.equals("NONE")) {
+            literaryGenreEnumName = "";
+        }
+        Page<Book> page = repository.find(literaryGenreEnumName, name, pageable);
+        repository.findBooksWithReviews(page.getContent());
+        return page.map(x -> new BookDTO(x, x.getReviews()));
     }
 
     public BookDTO findById(Long id) {
@@ -60,7 +71,7 @@ public class BookService {
 
     public BookDTO updateBook(Long id, BookDTO bookDTO) {
         try {
-            var book = repository.getReferenceById(id);
+            var book = findByBookId(id);
             book = copyDTOToEntity(bookDTO);
             book = repository.save(book);
             return new BookDTO(book);
@@ -113,7 +124,6 @@ public class BookService {
         double avg = sum / book.getReviews().size();
 
         book.setScore(avg);
-        book.setCountReview(book.getReviews().size());
 
         book = repository.save(book);
 

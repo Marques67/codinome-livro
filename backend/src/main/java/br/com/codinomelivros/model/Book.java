@@ -30,11 +30,9 @@ public class Book {
 
     private String image;
 
-    @OneToMany(mappedBy = "book", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true)
+    @OneToMany(mappedBy = "id.book", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.REMOVE, CascadeType.REFRESH}, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Review> reviews = new HashSet<>();
-
-    private Integer countReview;
 
     private Double score;
 
@@ -52,7 +50,6 @@ public class Book {
         this.publishingCompany = publishingCompany;
         this.image = image;
         this.reviews = reviews;
-        this.countReview = countReview;
         this.score = score;
     }
 
@@ -126,14 +123,6 @@ public class Book {
 
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    public Integer getCountReview() {
-        return countReview;
-    }
-
-    public void setCountReview(Integer countReview) {
-        this.countReview = countReview;
     }
 
     public Double getScore() {

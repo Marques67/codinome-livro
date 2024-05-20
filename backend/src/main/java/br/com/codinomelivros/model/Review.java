@@ -1,6 +1,7 @@
 package br.com.codinomelivros.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
@@ -9,7 +10,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_review")
-public class Review {
+public class Review implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @EmbeddedId
     private ReviewPK id;

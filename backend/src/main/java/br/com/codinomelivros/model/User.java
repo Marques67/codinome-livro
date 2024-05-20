@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(name = "tb_user")
 public class User implements UserDetails, Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +20,9 @@ public class User implements UserDetails, Serializable {
 
     private String firstName;
 
-    private String LastName;
+    private String lastName;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -31,15 +33,12 @@ public class User implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<Review> review = new ArrayList<>();
-
     public User() {};
 
     public User(Long id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
-        LastName = lastName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
@@ -61,11 +60,11 @@ public class User implements UserDetails, Serializable {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -136,12 +135,4 @@ public class User implements UserDetails, Serializable {
         return true;
     }
 
-    public boolean hasHole(String roleName) {
-        for (Role role: roles) {
-            if (role.getAuthority().equals(roleName)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

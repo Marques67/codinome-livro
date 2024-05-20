@@ -24,11 +24,4 @@ public class AuthService {
             throw new UnauthorizedException("Invalid user");
         }
     }
-
-    public void validateSelfOrAdmin(Long userId) {
-        User user = authenticated();
-        if (!user.getId().equals(userId) && !user.hasHole("VISITOR_OR_MEMBER")) {
-            throw new ForbiddenException("Access denied");
-        }
-    }
 }

@@ -59,4 +59,12 @@ public class ReviewDTO implements Serializable {
     public void setDate(Instant date) {
         this.date = date;
     }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
 }
