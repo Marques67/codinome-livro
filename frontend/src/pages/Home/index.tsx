@@ -14,7 +14,7 @@ const Home = () => {
           </div>
           <div>
             <Link to="/books">
-              <ButtonIcon text="ENCONTRE SEU PRÓXIMO LIVRO FAVORITO" />
+              <ButtonIcon text="DESCUBRA SUA PRÓXIMA LEITURA" />
             </Link>
           </div>
         </div>
