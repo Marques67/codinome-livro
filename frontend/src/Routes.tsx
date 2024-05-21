@@ -5,6 +5,7 @@ import Home from 'pages/Home';
 import Books from 'pages/Book';
 import Admin from 'pages/Admin';
 import BookDetails from 'pages/BookDetails';
+import Auth from 'pages/Admin/Auth';
 
 const Routes = () => {
   return (
@@ -19,6 +20,10 @@ const Routes = () => {
         </Route>
         <Route path="/books/:bookId">
           <BookDetails />
+        </Route>
+        <Redirect from="/admin/auth" to="/admin/auth/login" exact />
+        <Route path="/admin/auth">
+          <Auth />
         </Route>
         <Redirect from="/admin" to="/admin/books" exact />
         <Route path="/admin">
