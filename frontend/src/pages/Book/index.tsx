@@ -4,9 +4,8 @@ import { Book } from 'types/book';
 import Pagination from 'components/Pagination';
 import { useEffect, useState } from 'react';
 import { SpringPage } from 'types/vendor/spring';
-import { AxiosParams } from 'types/vendor/axios';
 import { BASE_URL } from 'util/requests';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import './styles.css';
 import CardLoader from './CardLoader';
@@ -16,9 +15,10 @@ const Books = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const getBooks = (pageNumber: number) => {
-    const params: AxiosParams = {
+    const params: AxiosRequestConfig = {
       method: 'GET',
-      url: `${BASE_URL}/books`,
+      url: '/books',
+      baseURL: BASE_URL,
       params: {
         page: pageNumber,
         size: 12,

@@ -3,8 +3,18 @@ import { Route, Switch } from 'react-router-dom';
 
 import './styles.css';
 import Login from './Login';
+import Recover from './Recover';
+import RecoverResetPassword from './RecoverResetPassword';
+import { useState } from 'react';
+import ResetPassword from './ResetPassword';
 
 const Auth = () => {
+  const [email, setEmail] = useState('');
+
+  const updateEmail = (newEmail: string) => {
+    setEmail(newEmail);
+  };
+
   return (
     <div className="auth-container">
       <div className="auth-banner-container">
@@ -20,8 +30,14 @@ const Auth = () => {
           <Route path="/admin/auth/register">
             <h1>Card de SignUp</h1>
           </Route>
-          <Route path="/admin/auth/recover">
-            <h1>Card de Recover</h1>
+          <Route path="/admin/auth/recover" exact>
+            <Recover updateEmail={updateEmail} />
+          </Route>
+          <Route path="/admin/auth/recover/reset">
+            <RecoverResetPassword email={email} />
+          </Route>
+          <Route path="/admin/auth/recover/resetPassword">
+            <ResetPassword />
           </Route>
         </Switch>
       </div>
