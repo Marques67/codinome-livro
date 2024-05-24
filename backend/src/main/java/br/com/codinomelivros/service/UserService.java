@@ -54,6 +54,11 @@ public class UserService implements UserDetailsService {
         return new UserDTO(user);
     }
 
+    @Transactional(readOnly = true)
+    public User findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
     @Transactional
     public UserDTO insert(UserInsertDTO dto) {
         User user = new User();
@@ -76,6 +81,13 @@ public class UserService implements UserDetailsService {
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id " + id + " not found");
         }
+    }
+
+    @Transactional
+    public void updatePassword(String email, String password) {
+        User user = repository.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+        user = repository.save(user);
     }
 
     public void delete(Long id) {

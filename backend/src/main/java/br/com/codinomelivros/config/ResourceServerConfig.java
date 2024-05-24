@@ -29,7 +29,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private JwtTokenStore tokenStore;
 
-    private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**", "/email/sending-email/**" };
+    private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**", "/email/sending-email/**", "/passwordReset/**" };
 
     private static final String[] GUEST_OR_ADMIN = { "/books/**", "/reviews/**" };
 
