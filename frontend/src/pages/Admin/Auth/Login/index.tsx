@@ -6,7 +6,9 @@ import './styles.css';
 import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import { AuthContext } from 'AuthContext';
-import axios from 'axios';
+import { requestBackendLogin } from 'util/requests';
+import { saveAuthData } from 'util/storage';
+import { getTokenData } from 'util/auth';
 
 type CredentialsDTO = {
   username: string;
@@ -30,23 +32,22 @@ const Login = () => {
 
   const history = useHistory();
 
-  // const onSubmit = (formData: CredentialsDTO) => {
-  //   axios
-  //     .post(formData)
-  //     .then((response) => {
-  //       saveAuthData(response.data);
-  //       setHasError(false);
-  //       setAuthContextData({
-  //         authenticated: true,
-  //         tokenData: getTokenData(),
-  //       });
-  //       history.replace(from);
-  //     })
-  //     .catch((error) => {
-  //       setHasError(true);
-  //       console.log('ERRO', error);
-  //     });
-  // };
+  const onSubmit = (formData: CredentialsDTO) => {
+    requestBackendLogin(formData)
+      .then((response) => {
+        saveAuthData(response.data);
+        setHasError(false);
+        setAuthContextData({
+          authenticated: true,
+          tokenData: getTokenData(),
+        });
+        history.replace(from);
+      })
+      .catch((error) => {
+        setHasError(true);
+        console.log('ERRO', error);
+      });
+  };
 
   return (
     <div className="base-card login-card">
@@ -57,7 +58,7 @@ const Login = () => {
       {hasError && (
         <div className="alert alert-danger">Erro ao tentar efetuar o login</div>
       )}
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <input
             {...register('username', {
