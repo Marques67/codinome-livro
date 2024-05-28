@@ -5,6 +5,8 @@ import br.com.codinomelivros.dto.UserInsertDTO;
 import br.com.codinomelivros.dto.UserUpdateDTO;
 import br.com.codinomelivros.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,11 +21,11 @@ public class UserController {
 	
 	@Autowired
 	private UserService service;
-	
+
 	@GetMapping
-	private ResponseEntity<List<UserDTO>> findAll() {
-		List<UserDTO> users = service.findAll();
-		return ResponseEntity.ok().body(users);
+	public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
+		Page<UserDTO> list = service.findAllPaged(pageable);
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")

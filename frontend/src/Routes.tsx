@@ -1,4 +1,4 @@
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import NavBar from 'components/Navbar';
 import Footer from 'components/Footer';
 import Home from 'pages/Home';
@@ -6,10 +6,11 @@ import Books from 'pages/Book';
 import Admin from 'pages/Admin';
 import BookDetails from 'pages/BookDetails';
 import Auth from 'pages/Admin/Auth';
+import history from 'util/history';
 
 const Routes = () => {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <NavBar />
       <Switch>
         <Route path="/" exact>
@@ -31,7 +32,7 @@ const Routes = () => {
         </Route>
       </Switch>
       <Footer />
-    </BrowserRouter>
+    </Router>
   );
 };
 

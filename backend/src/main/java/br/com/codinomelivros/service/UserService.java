@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,9 +44,9 @@ public class UserService implements UserDetailsService {
     private RoleRepository roleRepository;
 
     @Transactional(readOnly = true)
-    public List<UserDTO> findAll() {
-        List<User> users = repository.findAll();
-        return users.stream().map(user -> new UserDTO(user)).collect(Collectors.toList());
+    public Page<UserDTO> findAllPaged(Pageable pageable) {
+        Page<User> list = repository.findAll(pageable);
+        return list.map(x -> new UserDTO(x));
     }
 
     @Transactional(readOnly = true)
