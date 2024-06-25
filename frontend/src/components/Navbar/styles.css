@@ -42,3 +42,53 @@
     color: white;
     font-weight: bold;
 }
+
+.nav-login-logout {
+    display: none;
+}
+
+.nav-username {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .nav-login-logout {
+        display: unset;
+        color: #fff;
+        margin-right: 15px;
+    }
+
+    .login-navbar-img svg {
+        display: none;
+    }
+
+    .logout-navbar-img svg {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .nav-login-logout {
+        margin-right: 40px;
+    }
+
+    .login-logout-navbar {
+        display: flex;
+        align-items: center;
+    }
+
+    .login-logout-navbar svg {
+        display: unset;
+        flex-direction: row;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        color: #fff;
+        margin-left: 5px;
+    }
+
+    .nav-username {
+        display: unset;
+        margin-right: 20px;
+    }
+}
