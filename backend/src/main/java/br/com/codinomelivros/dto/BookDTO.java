@@ -26,7 +26,7 @@ public class BookDTO implements Serializable {
 
     @NotBlank(message = "Campo requerido")
     private String author;
-    private LiteraryGenreEnum literaryGenreEnum;
+    private Set<GenreDTO> literaryGenreEnumSet = new HashSet<>();
     private Integer numberOfPages;
     private String publishingCompany;
     private String image;
@@ -36,13 +36,12 @@ public class BookDTO implements Serializable {
 
     public BookDTO() {}
 
-    public BookDTO(Long id, String name, String description, String author, LiteraryGenreEnum literaryGenreEnumm,
-                   Integer numberOfPages, String publishingCompany, String image, Integer countReview, Double score) {
+    public BookDTO(Long id, String name, String description, String author, Integer numberOfPages,
+                   String publishingCompany, String image, Integer countReview, Double score) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.author = author;
-        this.literaryGenreEnum = literaryGenreEnumm;
         this.numberOfPages = numberOfPages;
         this.publishingCompany = publishingCompany;
         this.image = image;
@@ -55,17 +54,25 @@ public class BookDTO implements Serializable {
         this.name = book.getName();
         this.description = book.getDescription();
         this.author = book.getAuthor();
-        this.literaryGenreEnum = book.getLiteraryGenreEnum();
         this.numberOfPages = book.getNumberOfPages();
         this.publishingCompany = book.getPublishingCompany();
         this.image = book.getImage();
         this.countReview = book.getReviews().size();
         this.score = book.getScore();
+
+        Set<GenreDTO> genre = new HashSet<>();
+        book.getLiteraryGenreEnumSet().forEach(genreSet -> {
+            GenreDTO genreDTO = new GenreDTO(genreSet);
+            genre.add(genreDTO);
+        });
+
+        this.literaryGenreEnumSet = genre;
     }
 
-    public BookDTO(Book book, Set<Review> reviews) {
+    public BookDTO(Book book, Set<Review> reviews, Set<LiteraryGenreEnum> literaryGenreEnums) {
         this(book);
         reviews.forEach(review -> this.reviews.add(new ReviewDTO(review)));
+        literaryGenreEnums.forEach(genre -> this.literaryGenreEnumSet.add(new GenreDTO(genre)));
     }
 
     public Long getId() {
@@ -100,12 +107,12 @@ public class BookDTO implements Serializable {
         this.author = author;
     }
 
-    public LiteraryGenreEnum getLiteraryGenreEnum() {
-        return literaryGenreEnum;
+    public Set<GenreDTO> getLiteraryGenreEnumSet() {
+        return literaryGenreEnumSet;
     }
 
-    public void setLiteraryGenreEnum(LiteraryGenreEnum literaryGenreEnum) {
-        this.literaryGenreEnum = literaryGenreEnum;
+    public void setLiteraryGenreEnumSet(Set<GenreDTO> literaryGenreEnumSet) {
+        this.literaryGenreEnumSet = literaryGenreEnumSet;
     }
 
     public Integer getNumberOfPages() {

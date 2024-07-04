@@ -5,7 +5,7 @@ export type Book = {
     name: string;
     description: string;
     author: string;
-    literaryGenreEnum: LiteraryGenrerEnum;
+    literaryGenreEnum: LiteraryGenrerEnum[];
     numberOfPages: number;
     publishingCompany: string;
     image: string;

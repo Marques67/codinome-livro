@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/books")
@@ -18,12 +17,6 @@ public class BookController {
 
     @Autowired
     private BookService service;
-
-//    @GetMapping
-//    public ResponseEntity<Page<BookDTO>> findAll(Pageable pageable) {
-//        Page<BookDTO> list = service.findAllPaged(pageable);
-//        return ResponseEntity.ok().body(list);
-//    }
 
     @GetMapping
     public ResponseEntity<Page<BookDTO>> findAll(@RequestParam(value = "literaryGenreEnum", defaultValue = "NONE") String literaryGenre,

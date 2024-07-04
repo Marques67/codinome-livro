@@ -1,0 +1,29 @@
+.book-crud-card {
+    margin-bottom: 30px;
+}
+
+.book-crud-card-top-container {
+    text-align: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.book-crud-card-top-container img {
+    width: 158px;
+    height: 198px;
+}    
+
+.book-crud-card-bottom-container {
+    text-align: start;
+    padding: 15px 20px 30px 20px;
+}
+
+.book-crud-card-bottom-container h6 {
+    font-size: 18px;
+    color: #263238;
+}
+
+.book-crud-genre-container {
+    display: flex;
+    padding: 0 20px;
+}

@@ -20,10 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.Instant;
-import java.util.List;
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @Service
 public class BookService {
@@ -45,16 +44,30 @@ public class BookService {
         LiteraryGenreEnum literaryGenreEnum = LiteraryGenreEnum.valueOf(literaryGenre);
         String literaryGenreEnumName = literaryGenreEnum.getName();
         if (literaryGenreEnumName.equals("NONE")) {
-            literaryGenreEnumName = "";
+            literaryGenreEnum = null;
         }
-        Page<Book> page = repository.find(literaryGenreEnumName, name, pageable);
+        Page<Book> page = repository.find(literaryGenreEnum, name, pageable);
         repository.findBooksWithReviews(page.getContent());
-        return page.map(x -> new BookDTO(x, x.getReviews()));
+        return page.map(x -> new BookDTO(x, x.getReviews(), x.getLiteraryGenreEnumSet()));
     }
+
+//    @Transactional(readOnly = true)
+//    public Page<BookDTO> findAllPaged(String literaryGenre, String name, Pageable pageable) {
+//        if (literaryGenre.isBlank()) {
+//            Page<Book> page = repository.find(LiteraryGenreEnum.valueOf(""), name, pageable);
+//            repository.findBooksWithReviews(page.getContent());
+//            return page.map(x -> new BookDTO(x, x.getReviews()));
+//        } else {
+//            LiteraryGenreEnum literaryGenreEnum = LiteraryGenreEnum.valueOf(literaryGenre);
+//            Page<Book> page = repository.find(literaryGenreEnum, name, pageable);
+//            repository.findBooksWithReviews(page.getContent());
+//            return page.map(x -> new BookDTO(x, x.getReviews()));
+//        }
+//    }
 
     public BookDTO findById(Long id) {
         Book book = findByBookId(id);
-        return new BookDTO(book, book.getReviews());
+        return new BookDTO(book, book.getReviews(), book.getLiteraryGenreEnumSet());
     }
 
     public Book findByBookId(Long id) {
@@ -97,10 +110,18 @@ public class BookService {
         book.setName(dto.getName());
         book.setDescription(dto.getDescription());
         book.setAuthor(dto.getAuthor());
-        book.setLiteraryGenreEnum(dto.getLiteraryGenreEnum());
         book.setNumberOfPages(dto.getNumberOfPages());
         book.setPublishingCompany(dto.getPublishingCompany());
         book.setImage(dto.getImage());
+
+        Set<LiteraryGenreEnum>  literaryGenreEnumSet = new HashSet<>();
+        dto.getLiteraryGenreEnumSet().forEach(genre -> {
+            String nameGenre = genre.getLiteraryGenreEnum();
+            LiteraryGenreEnum literaryGenreEnum = LiteraryGenreEnum.valueOf(nameGenre);
+            literaryGenreEnumSet.add(literaryGenreEnum);
+        });
+        book.setLiteraryGenreEnumSet(literaryGenreEnumSet);
+
         return book;
     }
 

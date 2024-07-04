@@ -21,8 +21,10 @@ public class Book {
 
     private String author;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "book_genre", joinColumns = @JoinColumn(name = "book_id"))
     @Enumerated(EnumType.STRING)
-    private LiteraryGenreEnum literaryGenreEnum;
+    private Set<LiteraryGenreEnum> literaryGenreEnumSet = new HashSet<>();
 
     private Integer numberOfPages;
 
@@ -39,13 +41,13 @@ public class Book {
     public Book() {};
 
     public Book(Long id, String name, String description, String author,
-                LiteraryGenreEnum literaryGenreEnum, Integer numberOfPages,
-                String publishingCompany, String image, Set<Review> reviews, Integer countReview, Double score) {
+                Set<LiteraryGenreEnum> literaryGenreEnumSet, Integer numberOfPages,
+                String publishingCompany, String image, Set<Review> reviews, Double score) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.author = author;
-        this.literaryGenreEnum = literaryGenreEnum;
+        this.literaryGenreEnumSet = literaryGenreEnumSet;
         this.numberOfPages = numberOfPages;
         this.publishingCompany = publishingCompany;
         this.image = image;
@@ -85,12 +87,12 @@ public class Book {
         this.author = author;
     }
 
-    public LiteraryGenreEnum getLiteraryGenreEnum() {
-        return literaryGenreEnum;
+    public Set<LiteraryGenreEnum> getLiteraryGenreEnumSet() {
+        return literaryGenreEnumSet;
     }
 
-    public void setLiteraryGenreEnum(LiteraryGenreEnum literaryGenreEnum) {
-        this.literaryGenreEnum = literaryGenreEnum;
+    public void setLiteraryGenreEnumSet(Set<LiteraryGenreEnum> literaryGenreEnumSet) {
+        this.literaryGenreEnumSet = literaryGenreEnumSet;
     }
 
     public Integer getNumberOfPages() {
