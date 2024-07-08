@@ -14,7 +14,7 @@ function BookCrudCard({ book }: Props) {
       <div className="book-crud-card-top-container">
         <img src={book.image} alt={book.name} />
       </div>
-      <div>
+      <div className="book-crud-card-description">
         <div className="book-crud-card-bottom-container">
           <h6>{book.name}</h6>
           <BookCrudScore count={book.countReview} score={book.score} />
@@ -24,6 +24,14 @@ function BookCrudCard({ book }: Props) {
             <GenreBadge literaryGenre={genre} key={genre} />
           ))}
         </div>
+      </div>
+      <div className="book-crud-buttons-container">
+        <button className="btn btn-outline-danger book-crud-card-button book-crud-card-button-first">
+          EXCLUIR
+        </button>
+        <button className="btn btn-outline-secondary book-crud-card-button">
+          EDITAR
+        </button>
       </div>
     </div>
   );
