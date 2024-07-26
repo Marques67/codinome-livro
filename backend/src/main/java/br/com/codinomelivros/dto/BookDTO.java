@@ -69,10 +69,9 @@ public class BookDTO implements Serializable {
         this.literaryGenreEnumSet = genre;
     }
 
-    public BookDTO(Book book, Set<Review> reviews, Set<LiteraryGenreEnum> literaryGenreEnums) {
+    public BookDTO(Book book, Set<Review> reviews) {
         this(book);
         reviews.forEach(review -> this.reviews.add(new ReviewDTO(review)));
-        literaryGenreEnums.forEach(genre -> this.literaryGenreEnumSet.add(new GenreDTO(genre)));
     }
 
     public Long getId() {

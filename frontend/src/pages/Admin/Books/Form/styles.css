@@ -1,0 +1,44 @@
+.book-crud-form-card {
+    padding: 20px;
+}
+
+.book-crud-form-title {
+    font-weight: bold;
+    font-size: 22px;
+    letter-spacing: -0.015em;
+    color: #263238;
+    margin-bottom: 30px;
+}
+
+.margin-bottom-30, .book-crud-inputs-container, .book-crud-inputs-left-container {
+    margin-bottom: 30px;
+}
+
+.book-crud-form-buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.book-crud-button {
+    height: 50px;
+    border-radius: 10px;
+    width: 120px;
+    font-weight: bold;
+}
+
+@media(min-width: 576px) {
+    .book-crud-form-buttons-container {
+        justify-content: flex-end;
+    }
+
+    .book-crud-button {
+        margin-left: 30px;
+        width: 270px;
+    }
+}
+
+@media(min-width: 992px) {
+    .book-crud-inputs-left-container {
+        margin-bottom: 0;
+    }
+}

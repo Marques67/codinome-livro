@@ -1,9 +1,9 @@
-import { LiteraryGenrerEnum } from 'types/book';
+import { LiteraryGenreEnum } from 'types/book';
 
 import './styles.css';
 
 type Props = {
-  literaryGenre: LiteraryGenrerEnum;
+  literaryGenre: LiteraryGenreEnum;
 };
 
 const GenreBadge = ({ literaryGenre }: Props) => {

@@ -1,5 +1,6 @@
 import { Book } from 'types/book';
 import GenreBadge from '../GenreBadge';
+import { v4 as uuidv4 } from 'uuid';
 
 import './styles.css';
 import BookCrudScore from '../BookCrudScore';
@@ -9,6 +10,10 @@ type Props = {
 };
 
 function BookCrudCard({ book }: Props) {
+  const genres = (book.literaryGenreEnumSet || []).map(
+    (item) => item.literaryGenreEnum
+  );
+
   return (
     <div className="base-card book-crud-card">
       <div className="book-crud-card-top-container">
@@ -19,9 +24,11 @@ function BookCrudCard({ book }: Props) {
           <h6>{book.name}</h6>
           <BookCrudScore count={book.countReview} score={book.score} />
         </div>
-        <div className="book-crud-genre-container">
-          {book.literaryGenreEnum.map((genre) => (
-            <GenreBadge literaryGenre={genre} key={genre} />
+        <div className="book-crud-genre-list">
+          {genres.map((genre) => (
+            <div key={uuidv4()} className="book-crud-genre-container">
+              <GenreBadge literaryGenre={genre} />
+            </div>
           ))}
         </div>
       </div>

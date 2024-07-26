@@ -48,26 +48,12 @@ public class BookService {
         }
         Page<Book> page = repository.find(literaryGenreEnum, name, pageable);
         repository.findBooksWithReviews(page.getContent());
-        return page.map(x -> new BookDTO(x, x.getReviews(), x.getLiteraryGenreEnumSet()));
+        return page.map(x -> new BookDTO(x, x.getReviews()));
     }
-
-//    @Transactional(readOnly = true)
-//    public Page<BookDTO> findAllPaged(String literaryGenre, String name, Pageable pageable) {
-//        if (literaryGenre.isBlank()) {
-//            Page<Book> page = repository.find(LiteraryGenreEnum.valueOf(""), name, pageable);
-//            repository.findBooksWithReviews(page.getContent());
-//            return page.map(x -> new BookDTO(x, x.getReviews()));
-//        } else {
-//            LiteraryGenreEnum literaryGenreEnum = LiteraryGenreEnum.valueOf(literaryGenre);
-//            Page<Book> page = repository.find(literaryGenreEnum, name, pageable);
-//            repository.findBooksWithReviews(page.getContent());
-//            return page.map(x -> new BookDTO(x, x.getReviews()));
-//        }
-//    }
 
     public BookDTO findById(Long id) {
         Book book = findByBookId(id);
-        return new BookDTO(book, book.getReviews(), book.getLiteraryGenreEnumSet());
+        return new BookDTO(book, book.getReviews());
     }
 
     public Book findByBookId(Long id) {

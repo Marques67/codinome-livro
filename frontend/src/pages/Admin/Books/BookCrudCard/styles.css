@@ -24,10 +24,16 @@
     color: #263238;
 }
 
+.book-crud-genre-list {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding: 0 20px;
+}
+
 .book-crud-genre-container {
     display: flex;
     flex-wrap: wrap;
-    padding: 0 20px;
 }
 
 .book-crud-buttons-container {

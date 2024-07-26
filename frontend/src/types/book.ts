@@ -5,7 +5,7 @@ export type Book = {
     name: string;
     description: string;
     author: string;
-    literaryGenreEnum: LiteraryGenrerEnum[];
+    literaryGenreEnumSet?: { literaryGenreEnum: LiteraryGenreEnum }[];
     numberOfPages: number;
     publishingCompany: string;
     image: string;
@@ -14,7 +14,7 @@ export type Book = {
     score: number;
 }
 
-export enum LiteraryGenrerEnum {
+export enum LiteraryGenreEnum {
     HORROR = 'TERROR',
     CHILDISH = 'INFANTOJUVENIL',
     THRILLER = 'THRILLER',
