@@ -51,27 +51,32 @@ public class BookService {
         return page.map(x -> new BookDTO(x, x.getReviews()));
     }
 
+    @Transactional(readOnly = true)
     public BookDTO findById(Long id) {
         Book book = findByBookId(id);
         return new BookDTO(book, book.getReviews());
     }
 
+    @Transactional(readOnly = true)
     public Book findByBookId(Long id) {
         Optional<Book> bookOp = repository.findById(id);
         Book book = bookOp.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
         return book;
     }
 
+    @Transactional
     public BookDTO insertNewBook(BookDTO newBook) {
-        Book book = copyDTOToEntity(newBook);
+        Book book = new Book();
+        copyDTOToEntity(newBook, book);
         book = repository.save(book);
         return new BookDTO(book);
     }
 
+    @Transactional
     public BookDTO updateBook(Long id, BookDTO bookDTO) {
         try {
             var book = findByBookId(id);
-            book = copyDTOToEntity(bookDTO);
+            copyDTOToEntity(bookDTO, book);
             book = repository.save(book);
             return new BookDTO(book);
         } catch (EntityNotFoundException ex) {
@@ -91,8 +96,7 @@ public class BookService {
         }
     }
 
-    public Book copyDTOToEntity(BookDTO dto) {
-        Book book = new Book();
+    public Book copyDTOToEntity(BookDTO dto, Book book) {
         book.setName(dto.getName());
         book.setDescription(dto.getDescription());
         book.setAuthor(dto.getAuthor());
@@ -101,12 +105,14 @@ public class BookService {
         book.setImage(dto.getImage());
 
         Set<LiteraryGenreEnum>  literaryGenreEnumSet = new HashSet<>();
-        dto.getLiteraryGenreEnumSet().forEach(genre -> {
-            String nameGenre = genre.getLiteraryGenreEnum();
-            LiteraryGenreEnum literaryGenreEnum = LiteraryGenreEnum.valueOf(nameGenre);
-            literaryGenreEnumSet.add(literaryGenreEnum);
-        });
-        book.setLiteraryGenreEnumSet(literaryGenreEnumSet);
+        if (!dto.getLiteraryGenreEnumSet().isEmpty()) {
+            dto.getLiteraryGenreEnumSet().forEach(genre -> {
+                String nameGenre = genre.getLiteraryGenreEnum();
+                LiteraryGenreEnum literaryGenreEnum = LiteraryGenreEnum.valueOf(nameGenre);
+                literaryGenreEnumSet.add(literaryGenreEnum);
+            });
+            book.setLiteraryGenreEnumSet(literaryGenreEnumSet);
+        }
 
         return book;
     }

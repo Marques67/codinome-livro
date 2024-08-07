@@ -11,12 +11,12 @@ import { AxiosRequestConfig } from 'axios';
 const List = () => {
   const [page, setPage] = useState<SpringPage<Book>>();
 
-  const getBooks = (pageNumber: number) => {
+  const getBooks = () => {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: '/books',
       params: {
-        page: pageNumber,
+        //page: pageNumber,
         size: 12,
       },
     };
@@ -26,7 +26,7 @@ const List = () => {
   };
 
   useEffect(() => {
-    getBooks(0);
+    getBooks();
   }, []);
 
   return (
@@ -42,7 +42,7 @@ const List = () => {
       <div className="row">
         {page?.content.map((book) => (
           <div key={book.id} className="col-sm-6 col-md-12">
-            <BookCrudCard book={book} />
+            <BookCrudCard book={book} onDelete={() => getBooks()} />
           </div>
         ))}
       </div>

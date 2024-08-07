@@ -11,12 +11,12 @@ import { useEffect, useState } from 'react';
 import BookInfoLoader from './BookInfoLoader';
 import BookDetailsLoader from './BookDetailsLoader';
 
-type urlParam = {
+type UrlParams = {
   bookId: string;
 };
 
 const BookDetails = () => {
-  const { bookId } = useParams<urlParam>();
+  const { bookId } = useParams<UrlParams>();
   const [book, setBook] = useState<Book>();
   const [isLoading, setIsLoading] = useState(false);
 

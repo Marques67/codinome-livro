@@ -84,6 +84,7 @@
     }
 
     .book-crud-card-top-container {
+        width: 200px;
         text-align: center;
         padding: 16px 0;
         border-right: 1px solid #e1e1e1;
